@@ -176,7 +176,7 @@ body {
     margin-bottom: 25px;
 }
 
-/* --- FOTO PROFILE (DIBESARKAN & DI-ZOOM LEBIH BANYAK) --- */
+/* --- FOTO PROFILE (ZOOM) --- */
 .avatar-wrapper {
     flex: 0 0 160px; 
     position: relative;
@@ -185,7 +185,6 @@ body {
     z-index: 1;
 }
 
-/* Zoom dinaikkan jadi 1.6 agar gambar lebih besar dan mepet teks */
 .avatar-wrapper img {
     width: 100%;
     height: auto;
@@ -266,7 +265,7 @@ body {
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Jarak antara baris 1 (Img) dan baris 2 (Discord) */
+    gap: 12px; 
 }
 
 .btn {
@@ -274,10 +273,10 @@ body {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 16px 10px; /* Padding sedikit dilebarkan */
+    padding: 16px 10px; 
     border-radius: 12px;
     font-weight: 800;
-    font-size: 0.95rem; /* Ukuran font aman untuk 2 tombol sejajar */
+    font-size: 0.95rem; 
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
@@ -316,29 +315,62 @@ body {
     box-shadow: 0 10px 25px var(--accent-glow);
 }
 
-/* --- BARIS 1: GARWED & BUKIT (Sejajar) --- */
+/* --- BARIS 1: GARWED & BUKIT (DENGAN GAMBAR) --- */
 .img-buttons {
     display: flex;
     flex-direction: row; 
     gap: 12px; 
 }
 
-.img-buttons .btn {
-    flex: 1; /* Biar lebarnya sama rata */
-}
-
-.btn-secondary {
-    background: transparent;
-    color: var(--text-main);
+/* Desain Kotak Gambar */
+.btn-img-card {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    padding: 8px; 
+    height: 120px; /* Tinggi kotak */
+    gap: 5px;
+    background: #1a1a1a;
     border: 2px solid #333;
+    overflow: hidden;
+    position: relative;
+    flex: 1;
 }
 
-.btn-secondary:hover {
+/* Gambar di dalam kotak */
+.btn-img-card img {
+    width: 100%;
+    height: 75px; 
+    object-fit: cover; 
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+/* Teks di bawah gambar */
+.btn-img-card span {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-main);
+    transition: color 0.3s ease;
+}
+
+/* Efek Hover Kotak Gambar */
+.btn-img-card:hover {
     border-color: var(--accent);
-    background: rgba(255, 0, 51, 0.15);
-    color: #fff;
+    background: rgba(255, 0, 51, 0.1);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 0, 51, 0.2);
+    box-shadow: 0 8px 20px rgba(255, 0, 51, 0.2);
+}
+
+.btn-img-card:hover img {
+    transform: scale(1.1); 
+}
+
+.btn-img-card:hover span {
+    color: var(--accent);
 }
 
 /* --- FOOTER --- */
