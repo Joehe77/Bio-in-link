@@ -158,25 +158,29 @@ body {
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-/* --- FOTO PROFILE --- */
+/* --- LAYOUT BARU: KIRI GAMBAR, KANAN TEKS --- */
+.profile-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* --- FOTO PROFILE (Karakter Utuh) --- */
 .avatar-wrapper {
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    padding: 3px;
-    background: linear-gradient(45deg, #222, var(--accent));
+    flex: 1;
+    max-width: 150px;
     position: relative;
     animation: float 4s ease-in-out infinite;
 }
 
 .avatar-wrapper img {
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: #000;
-    border: 3px solid var(--bg-color);
+    height: auto;
+    object-fit: contain; 
+    /* Efek bayangan merah di bawah karakter */
+    filter: drop-shadow(0px 10px 15px rgba(255, 0, 51, 0.4)); 
 }
 
 @keyframes float {
@@ -184,21 +188,20 @@ body {
     50% { transform: translateY(-10px); }
 }
 
-/* --- INFO LIST --- */
+/* --- INFO LIST (Teks Kanan) --- */
 .info-list {
+    flex: 1.3;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 25px;
+    gap: 10px;
 }
 
 .info-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
+    flex-direction: column;
+    padding: 8px 12px;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
+    border-radius: 8px;
     border-left: 2px solid var(--accent);
     transition: all 0.3s ease;
 }
@@ -209,18 +212,19 @@ body {
 }
 
 .info-label {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
 }
 
 .info-value {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 800;
     color: var(--text-main);
-    text-align: right;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 /* --- BUTTONS --- */
@@ -256,6 +260,20 @@ body {
     background: #cc0029;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+/* --- TOMBOL IMG (Kotak Sejajar) --- */
+.img-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.img-buttons .btn {
+    flex: 1;
+    padding: 16px 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-secondary {
