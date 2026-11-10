@@ -35,7 +35,7 @@ body {
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 30px 30px;
     z-index: -1;
-    animation: gridMove 20s linear infinite;
+    animation: gridMove 15s linear infinite;
 }
 
 @keyframes gridMove {
@@ -57,10 +57,11 @@ body {
 }
 
 .loader-text {
+    font-family: 'Orbitron', sans-serif; /* Font Keren */
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: 900;
     color: var(--text-main);
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     animation: pulse 1.5s infinite;
 }
 
@@ -111,30 +112,33 @@ body {
     transform: translateY(0);
 }
 
-/* --- HEADER --- */
+/* --- HEADER (Animasi Glitch & Glow) --- */
 .header {
     text-align: center;
     margin-bottom: 30px;
 }
 
 .header h1 {
-    font-size: 2.4rem;
-    font-weight: 800;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
     text-transform: uppercase;
     color: transparent;
     -webkit-text-stroke: 1px var(--text-main);
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
 }
 
 .header h1 span {
     color: var(--accent);
     -webkit-text-stroke: 0;
-    animation: textGlow 2s ease-in-out infinite alternate;
+    animation: textGlow 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes textGlow {
     from { text-shadow: 0 0 10px var(--accent-glow); }
-    to { text-shadow: 0 0 25px var(--accent), 0 0 10px var(--accent); }
+    to { text-shadow: 0 0 30px var(--accent), 0 0 15px var(--accent); }
 }
 
 /* --- PROFILE CARD --- */
@@ -146,12 +150,6 @@ body {
     position: relative;
     box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     overflow: hidden;
-    animation: cardFloat 6s ease-in-out infinite;
-}
-
-@keyframes cardFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
 }
 
 .profile-card::before {
@@ -176,11 +174,11 @@ body {
     margin-bottom: 25px;
 }
 
-/* --- FOTO PROFILE (ZOOM) --- */
+/* --- FOTO PROFILE (Dengan Animasi Melayang Ekstra) --- */
 .avatar-wrapper {
-    flex: 0 0 160px; 
+    flex: 0 0 150px; 
     position: relative;
-    animation: float 3.5s ease-in-out infinite;
+    animation: floatAnim 4s ease-in-out infinite;
     margin-left: -15px; 
     z-index: 1;
 }
@@ -189,9 +187,14 @@ body {
     width: 100%;
     height: auto;
     object-fit: contain; 
-    transform: scale(1.6); 
+    transform: scale(1.7); /* Zoom extra besar */
     transform-origin: center center;
     filter: drop-shadow(0px 15px 10px rgba(0, 0, 0, 0.8)); 
+    transition: transform 0.3s ease;
+}
+
+.avatar-wrapper:hover img {
+    transform: scale(1.8) rotate(2deg); /* Bereaksi saat disentuh mouse */
 }
 
 .avatar-wrapper::before {
@@ -199,23 +202,23 @@ body {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 120px; height: 120px;
+    width: 100px; height: 100px;
     background: var(--accent);
-    filter: blur(50px);
-    opacity: 0.4;
+    filter: blur(60px);
+    opacity: 0.5;
     border-radius: 50%;
     z-index: -1;
     animation: pulseGlow 2s infinite alternate;
 }
 
 @keyframes pulseGlow {
-    from { opacity: 0.2; filter: blur(40px); }
-    to { opacity: 0.6; filter: blur(60px); }
+    from { opacity: 0.3; filter: blur(40px); }
+    to { opacity: 0.8; filter: blur(70px); }
 }
 
-@keyframes float {
+@keyframes floatAnim {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-15px); }
 }
 
 /* --- INFO LIST --- */
@@ -223,42 +226,60 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     z-index: 2;
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 10px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
     border-left: 3px solid var(--accent);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: default;
-    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efek kilauan saat di-hover */
+.info-item::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: 0.5s;
+}
+
+.info-item:hover::after {
+    left: 100%;
 }
 
 .info-item:hover {
-    background: rgba(255, 0, 51, 0.1);
-    transform: translateX(8px) scale(1.02);
-    box-shadow: -5px 0 15px rgba(255, 0, 51, 0.2);
+    background: rgba(255, 0, 51, 0.15);
+    transform: translateX(10px) scale(1.03);
+    box-shadow: -5px 0 20px rgba(255, 0, 51, 0.4);
 }
 
 .info-label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
+/* Font keren untuk isi teks (Idz, Role, Mod, Favorit Map) */
 .info-value {
-    font-size: 1.1rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
     font-weight: 800;
     color: var(--text-main);
     word-break: break-word;
+    letter-spacing: 1px;
 }
 
 /* --- BUTTONS --- */
@@ -272,17 +293,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     padding: 16px 10px; 
     border-radius: 12px;
+    font-family: 'Orbitron', sans-serif;
     font-weight: 800;
-    font-size: 0.95rem; 
+    font-size: 0.9rem; 
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
     border: none;
     width: 100%;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -294,14 +316,15 @@ body {
     overflow: hidden;
 }
 
+/* Animasi Kilauan di Tombol Discord */
 .btn-primary::after {
     content: '';
     position: absolute;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
     transform: rotate(45deg);
-    animation: shine 3s infinite;
+    animation: shine 2.5s infinite;
 }
 
 @keyframes shine {
@@ -312,78 +335,63 @@ body {
 .btn-primary:hover {
     background: #ff1a4a;
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 10px 25px var(--accent-glow);
+    box-shadow: 0 10px 30px var(--accent-glow);
 }
 
-/* --- BARIS 1: GARWED & BUKIT (DENGAN GAMBAR) --- */
+/* --- BARIS 1: KOTAK GAMBAR GARWED & BUKIT --- */
 .img-buttons {
     display: flex;
     flex-direction: row; 
     gap: 12px; 
 }
 
-/* Desain Kotak Gambar */
 .btn-img-card {
     display: flex;
-    flex-direction: column; 
     align-items: center;
     justify-content: center;
-    padding: 8px; 
-    height: 120px; /* Tinggi kotak */
-    gap: 5px;
+    padding: 0; /* Hilangkan padding agar gambar full */
+    height: 110px; 
     background: #1a1a1a;
     border: 2px solid #333;
     overflow: hidden;
     position: relative;
     flex: 1;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
-/* Gambar di dalam kotak */
 .btn-img-card img {
     width: 100%;
-    height: 75px; 
+    height: 100%; 
     object-fit: cover; 
-    border-radius: 6px;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: brightness(0.8); /* Sedikit digelapkan agar elegan */
 }
 
-/* Teks di bawah gambar */
-.btn-img-card span {
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-main);
-    transition: color 0.3s ease;
-}
-
-/* Efek Hover Kotak Gambar */
+/* Hover Kotak Gambar */
 .btn-img-card:hover {
     border-color: var(--accent);
-    background: rgba(255, 0, 51, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 0, 51, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 0, 51, 0.3);
 }
 
 .btn-img-card:hover img {
-    transform: scale(1.1); 
-}
-
-.btn-img-card:hover span {
-    color: var(--accent);
+    transform: scale(1.15); /* Zoom saat disentuh */
+    filter: brightness(1.1); /* Jadi terang saat disentuh */
 }
 
 /* --- FOOTER --- */
 .footer {
     text-align: center;
     margin-top: 30px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #666;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
-/* --- ANIMASI FADE IN UP --- */
+/* --- ANIMASI FADE IN UP (Staggered) --- */
 .fade-in-up {
     opacity: 0;
     transform: translateY(20px);
@@ -397,6 +405,8 @@ body {
     }
 }
 
+/* Delay bertahap untuk 4 menu */
 .info-item:nth-child(1) { animation-delay: 0.2s; }
 .info-item:nth-child(2) { animation-delay: 0.35s; }
 .info-item:nth-child(3) { animation-delay: 0.5s; }
+.info-item:nth-child(4) { animation-delay: 0.65s; }
