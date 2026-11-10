@@ -181,38 +181,24 @@ body {
     z-index: 2; 
 }
 
-/* --- AREA GAMBAR (AVATAR & GARWED) --- */
+/* --- AREA GAMBAR AVATAR (BERSIH TANPA PENUTUP) --- */
 .avatar-wrapper {
     flex: 0 0 150px; 
     height: 190px;   
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: flex-end; 
+    align-items: center; 
 }
 
-/* 1. AVATAR (Berada di Belakang) */
+/* Avatar (Di-zoom) */
 .avatar-img {
-    position: absolute;
-    bottom: -5px;
+    position: relative;
     width: 100%;
     height: auto;
-    transform: scale(2.3); /* Avatar di-zoom lebih besar */
-    z-index: 1; /* Layer bawah */
+    transform: scale(2.3); /* Avatar di-zoom */
+    z-index: 2; 
     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.9));
-}
-
-/* 2. GARWED (Berada di Depan Menutupi Avatar) */
-.bg-img {
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    z-index: 2; /* Layer atas */
-    opacity: 0.95; /* Sedikit transparan agar siluet avatar kelihatan */
 }
 
 /* --- DAFTAR INFO (TEKS KANAN) --- */
