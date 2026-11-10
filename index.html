@@ -28,34 +28,52 @@
             <h1>Elite <span>One</span> Squad</h1>
         </div>
 
-        <div class="profile-card">
+        <!-- KARTU 3D MAGNETIK -->
+        <div class="profile-card" id="magnetic-card">
             
             <div class="profile-content">
                 
-                <!-- AREA GAMBAR: Avatar dengan animasi -->
+                <!-- AREA GAMBAR: Avatar -->
                 <div class="avatar-wrapper">
                     <img src="assets/avatar.png" class="avatar-img" alt="Avatar">
                 </div>
 
-                <!-- INFO LIST -->
+                <!-- INFO LIST LIQUID 3D -->
                 <div class="info-list">
-                    <!-- Item IDZ (Bisa di-copy) -->
-                    <div class="info-item fade-in-up copy-item" onclick="copyID()">
-                        <span class="info-label">Idz <span class="copy-text">(Tap to copy)</span></span>
-                        <span class="info-value" id="id-text">xfouırld07</span>
+                    <!-- Item IDZ -->
+                    <div class="info-item liquid-item copy-item" onclick="copyID()" style="--x: 0; --y: 0;">
+                        <div class="liquid-bg"></div> <!-- Efek Liquid -->
+                        <div class="content-3d">
+                            <span class="info-label">IDZ <span class="copy-text">(tap to copy)</span></span>
+                            <span class="info-value" id="id-text">xfouırld07</span>
+                        </div>
                     </div>
                     
-                    <div class="info-item fade-in-up">
-                        <span class="info-label">Role</span>
-                        <span class="info-value">Kang DC</span>
+                    <!-- Item Role -->
+                    <div class="info-item liquid-item" style="--x: 0; --y: 0;">
+                        <div class="liquid-bg"></div>
+                        <div class="content-3d">
+                            <span class="info-label">ROLE</span>
+                            <span class="info-value">Kang DC</span>
+                        </div>
                     </div>
-                    <div class="info-item fade-in-up">
-                        <span class="info-label">User</span>
-                        <span class="info-value">Mod</span>
+                    
+                    <!-- Item User -->
+                    <div class="info-item liquid-item" style="--x: 0; --y: 0;">
+                        <div class="liquid-bg"></div>
+                        <div class="content-3d">
+                            <span class="info-label">USER</span>
+                            <span class="info-value">Mod</span>
+                        </div>
                     </div>
-                    <div class="info-item fade-in-up">
-                        <span class="info-label">Favorit Map</span>
-                        <span class="info-value"></span> 
+                    
+                    <!-- Item Map -->
+                    <div class="info-item liquid-item" style="--x: 0; --y: 0;">
+                        <div class="liquid-bg"></div>
+                        <div class="content-3d">
+                            <span class="info-label">FAVORIT MAP</span>
+                            <span class="info-value"></span> 
+                        </div>
                     </div>
                 </div>
 
@@ -85,30 +103,70 @@
         </div>
     </div>
 
-    <!-- SCRIPT UNTUK FITUR COPY -->
+    <!-- SCRIPT UNTUK 3D MAGNETIK & COPY -->
     <script>
+        // 1. Fitur Copy ID
         function copyID() {
-            // Teks yang mau di-copy
             var idText = document.getElementById("id-text").innerText;
-            
-            // Proses copy
             navigator.clipboard.writeText(idText).then(function() {
-                // Ubah teks kecil jadi "Tersalin!" sementara
                 var label = document.querySelector(".copy-text");
                 var originalText = label.innerText;
-                
-                label.innerText = "(Tersalin!)";
-                label.style.color = "#ff0033"; // Warna merah
-                
-                // Balikin lagi ke semula setelah 2 detik
+                label.innerText = "(Copied!)";
+                label.style.color = "#fff";
                 setTimeout(function() {
                     label.innerText = originalText;
                     label.style.color = "";
                 }, 2000);
-            }).catch(function(err) {
-                alert("Gagal menyalin ID: " + err);
             });
         }
+
+        // 2. Fitur 3D Magnetik pada Kartu Utama
+        const card = document.getElementById('magnetic-card');
+        
+        document.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Balikin ke posisi semula kalau mouse keluar
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            card.style.transition = "transform 0.5s ease";
+        });
+
+        document.addEventListener('mouseenter', () => {
+            card.style.transition = "none"; // Hapus transisi pas mouse masuk biar responsif
+        });
+
+        // 3. Fitur Liquid 3D pada Menu
+        const liquidItems = document.querySelectorAll('.liquid-item');
+        
+        liquidItems.forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left; // Posisi X kursor di dalam item
+                const y = e.clientY - rect.top;  // Posisi Y kursor di dalam item
+                
+                // Kalkulasi rotasi 3D berdasarkan posisi kursor
+                const rotateX = ((y / rect.height) - 0.5) * -20; // Max -10 s/d 10 derajat
+                const rotateY = ((x / rect.width) - 0.5) * 20;
+                
+                // Set variabel CSS untuk background liquid
+                item.style.setProperty('--x', `${x}px`);
+                item.style.setProperty('--y', `${y}px`);
+                
+                // Terapkan rotasi 3D
+                item.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+
+            // Balikin ke posisi semula saat mouse keluar
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                item.style.setProperty('--x', `50%`);
+                item.style.setProperty('--y', `50%`);
+            });
+        });
     </script>
 
     <script src="script.js"></script>
