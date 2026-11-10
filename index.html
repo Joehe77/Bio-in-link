@@ -39,10 +39,12 @@
 
                 <!-- INFO LIST -->
                 <div class="info-list">
-                    <div class="info-item fade-in-up">
-                        <span class="info-label">Idz</span>
-                        <span class="info-value">xfouırld07</span>
+                    <!-- Item IDZ (Bisa di-copy) -->
+                    <div class="info-item fade-in-up copy-item" onclick="copyID()">
+                        <span class="info-label">Idz <span class="copy-text">(Tap to copy)</span></span>
+                        <span class="info-value" id="id-text">xfouırld07</span>
                     </div>
+                    
                     <div class="info-item fade-in-up">
                         <span class="info-label">Role</span>
                         <span class="info-value">Kang DC</span>
@@ -53,7 +55,6 @@
                     </div>
                     <div class="info-item fade-in-up">
                         <span class="info-label">Favorit Map</span>
-                        <!-- Isi Fafotit Map dihapus, dibiarkan kosong -->
                         <span class="info-value"></span> 
                     </div>
                 </div>
@@ -83,6 +84,32 @@
             &copy; 2024 Elite One Squad.
         </div>
     </div>
+
+    <!-- SCRIPT UNTUK FITUR COPY -->
+    <script>
+        function copyID() {
+            // Teks yang mau di-copy
+            var idText = document.getElementById("id-text").innerText;
+            
+            // Proses copy
+            navigator.clipboard.writeText(idText).then(function() {
+                // Ubah teks kecil jadi "Tersalin!" sementara
+                var label = document.querySelector(".copy-text");
+                var originalText = label.innerText;
+                
+                label.innerText = "(Tersalin!)";
+                label.style.color = "#ff0033"; // Warna merah
+                
+                // Balikin lagi ke semula setelah 2 detik
+                setTimeout(function() {
+                    label.innerText = originalText;
+                    label.style.color = "";
+                }, 2000);
+            }).catch(function(err) {
+                alert("Gagal menyalin ID: " + err);
+            });
+        }
+    </script>
 
     <script src="script.js"></script>
 </body>
