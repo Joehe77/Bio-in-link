@@ -147,7 +147,7 @@ body {
     background: var(--card-bg); 
     border: 1px solid #222; 
     border-radius: 24px; 
-    padding: 30px 20px; /* Padding atas bawah ditambah biar lega */
+    padding: 30px 20px; 
     position: relative; 
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); 
     overflow: hidden; 
@@ -181,31 +181,32 @@ body {
     z-index: 2; 
 }
 
-/* --- AREA GAMBAR AVATAR (DIPERPANJANG) --- */
+/* --- AREA GAMBAR AVATAR (LEBIH PANJANG) --- */
 .avatar-wrapper {
     flex: 0 0 150px; 
-    height: 250px; /* <--- KOTAK DIPERPANJANG DARI 190px JADI 250px */
+    height: 280px; /* <--- KOTAK DIPERPANJANG LAGI JADI 280px */
     position: relative; 
     display: flex;
     justify-content: center;
     align-items: center; 
 }
 
-/* Avatar (Di-zoom & Dikasih Animasi Melayang + Glow) */
+/* Avatar (Animasi Melayang) */
 .avatar-img {
     position: relative;
     width: 100%;
     height: auto;
-    transform: scale(2.1); /* Zoom disesuaikan biar pas di kotak baru */
+    /* Zoom disesuaikan sedikit & digeser ke atas biar sepatu kelihatan */
+    transform: scale(2.0) translateY(-10px); 
     z-index: 2; 
     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.9));
-    animation: floatAvatar 4s ease-in-out infinite; /* <--- ANIMASI MELAYANG */
+    animation: floatAvatar 4s ease-in-out infinite; 
 }
 
 /* Animasi Avatar Naik Turun */
 @keyframes floatAvatar {
-    0%, 100% { transform: scale(2.1) translateY(0); }
-    50% { transform: scale(2.1) translateY(-15px); }
+    0%, 100% { transform: scale(2.0) translateY(-10px); }
+    50% { transform: scale(2.0) translateY(-25px); }
 }
 
 /* Efek Cahaya Merah di Belakang Avatar */
@@ -220,7 +221,7 @@ body {
     opacity: 0.5;
     border-radius: 50%;
     z-index: 1;
-    animation: pulseGlow 2s infinite alternate; /* <--- ANIMASI GLOW */
+    animation: pulseGlow 2s infinite alternate; 
 }
 
 @keyframes pulseGlow {
@@ -260,6 +261,18 @@ body {
     text-transform: uppercase; 
     letter-spacing: 1.5px; 
     margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Teks "Tap to copy" kecil */
+.copy-text {
+    font-size: 0.55rem;
+    color: #ff0033;
+    opacity: 0.7;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
 }
 
 .info-value { 
@@ -268,7 +281,15 @@ body {
     font-weight: 800; 
     color: var(--text-main); 
     word-break: break-word; 
-    min-height: 18px; /* Biar kotak Favorit Map tetap ada tinggi nya walau kosong */
+    min-height: 18px; 
+}
+
+/* Kursor jadi pointer untuk ID yang bisa di-copy */
+.copy-item {
+    cursor: pointer;
+}
+.copy-item:active {
+    transform: scale(0.98); /* Efek pencet */
 }
 
 /* --- TOMBOL-TOMBOL --- */
